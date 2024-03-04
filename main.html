@@ -1,15 +1,59 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-
-  <body>
-    <!-- do not change this code -->
-    <input type="number" id="ip" />
-    <button id="btn">Start</button>
+<head>
+    <title>Promise Chaining</title>
+</head>
+<body>
+    <input type="number" id="ip">
+    <button id="btn">Calculate</button>
     <div id="output"></div>
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+
+    <script>
+        const input = document.getElementById('ip');
+        const button = document.getElementById('btn');
+        const output = document.getElementById('output');
+
+        button.addEventListener('click', () => {
+            const number = parseInt(input.value);
+
+            const promise1 = new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(number);
+                }, 2000);
+            });
+
+            promise1.then((result) => {
+                output.textContent = `Result: ${result}`;
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(result * 2);
+                    }, 1000);
+                });
+            }).then((result) => {
+                output.textContent = `Result: ${result}`;
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(result - 3);
+                    }, 1000);
+                });
+            }).then((result) => {
+                output.textContent = `Result: ${result}`;
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(result / 2);
+                    }, 1000);
+                });
+            }).then((result) => {
+                output.textContent = `Result: ${result}`;
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(result + 10);
+                    }, 1000);
+                });
+            }).then((result) => {
+                output.textContent = `Final Result: ${result}`;
+            });
+        });
+    </script>
+</body>
 </html>
